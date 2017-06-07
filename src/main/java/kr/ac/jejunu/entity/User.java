@@ -1,4 +1,4 @@
-package entity;
+package kr.ac.jejunu.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

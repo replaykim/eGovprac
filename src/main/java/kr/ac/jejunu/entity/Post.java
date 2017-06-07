@@ -1,4 +1,4 @@
-package entity;
+package kr.ac.jejunu.entity;
 
 import java.util.Date;
 
