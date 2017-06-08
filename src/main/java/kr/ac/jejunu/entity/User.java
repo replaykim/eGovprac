@@ -2,7 +2,9 @@ package kr.ac.jejunu.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * Created by replay on 2017. 6. 5..
@@ -10,11 +12,12 @@ import javax.persistence.Id;
 @Entity
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;
     private String email;
     private String password;
     private String name;
+    private Date registDate;
 
     public Long getNo() {
         return no;
@@ -46,5 +49,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Date getRegistDate() {
+        return registDate;
+    }
+
+    public void setRegistDate(Date registDate) {
+        this.registDate = registDate;
     }
 }
