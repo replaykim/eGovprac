@@ -1,9 +1,6 @@
 package kr.ac.jejunu.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -15,8 +12,12 @@ public class Comment {
     @GeneratedValue
     private Long no;
     @ManyToOne
-    private User owner;
-    private String content;
+    @JoinColumn(name = "user_no",  referencedColumnName = "no")
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "content_no",  referencedColumnName = "no")
+    private Content content;
+    private String comments;
     private Date registDate;
 
     public Long getNo() {
@@ -27,20 +28,28 @@ public class Comment {
         this.no = no;
     }
 
-    public User getOwner() {
-        return owner;
+    public User getUser() {
+        return user;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getContent() {
+    public Content getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(Content content) {
         this.content = content;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     public Date getRegistDate() {

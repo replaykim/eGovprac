@@ -30,8 +30,8 @@ public class PostingServiceTest {
 
     @Test
     public void findOne(){
-        String content="임시";
-        Long like = 10l;
+        String content="임시1";
+        Long like = 1l;
         Long userNo = 1l;
 
         Content content1 = contentService.findOne(userNo);
@@ -41,8 +41,6 @@ public class PostingServiceTest {
     }
     @Test
     public void getContentsByUserId(){
-        String content="임시";
-        Long like = 10l;
         Long userNo = 1l;
 
         List<Content> contents = contentService.findAllByUser(userNo);
@@ -53,5 +51,4 @@ public class PostingServiceTest {
             assertThat(userNo,is(contents.get(i).getUser().getNo()));
         }
     }
-
 }

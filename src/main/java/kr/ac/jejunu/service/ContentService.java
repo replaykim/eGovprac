@@ -1,6 +1,6 @@
 package kr.ac.jejunu.service;
 
-import kr.ac.jejunu.dao.ContentDao;
+import kr.ac.jejunu.repository.ContentDao;
 import kr.ac.jejunu.entity.Content;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

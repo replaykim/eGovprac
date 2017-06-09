@@ -65,7 +65,7 @@ public class HibernateTest {
         assertThat(user.getName(), is(name));
         assertThat(user.getPassword(), is(password));
 //        user.getComments().forEach(comment->{
-//            logger.error(comment.getContent());
+//            logger.error(comment.getComments());
 //        });
         session.close();
     }

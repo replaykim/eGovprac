@@ -81,4 +81,5 @@ public class UserServiceTest {
         assertThat(changedName, is(getUser.getName()));
         assertThat(password, is(getUser.getPassword()));
     }
+
 }

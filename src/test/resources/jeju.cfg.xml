@@ -4,8 +4,8 @@
 <hibernate-configuration>
     <session-factory >
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">root</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jeju</property>
+        <property name="hibernate.connection.password">1234</property>
+        <property name="hibernate.connection.url">jdbc:mysql://117.17.102.106/replay2</property>
         <property name="hibernate.connection.username">root</property>
         <!--<property name="hibernate.default_schema">jejunu</property>-->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
