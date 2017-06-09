@@ -14,11 +14,16 @@ import java.util.List;
 public class ContentService {
     @Autowired
     ContentDao contentDao;
+
     public List<Content> findAllByUser(Long userNo) {
         return (List<Content>) contentDao.findByUserNo(userNo);
     }
 
     public Content findOne(Long userNo) {
         return contentDao.findOne(userNo);
+    }
+
+    public List<Content> findAll() {
+        return contentDao.findAll();
     }
 }

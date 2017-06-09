@@ -2,6 +2,7 @@ package kr.ac.jejunu.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by replay on 2017. 6. 5..
@@ -15,6 +16,9 @@ public class Content {
     @JoinColumn(name = "user_no",  referencedColumnName = "no")
     private User user;
     private String content;
+    @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name = "content_no")
+    private List<Comment> comments;
     private Long like;
     private Long dislike;
     private Date registDate;
@@ -41,6 +45,14 @@ public class Content {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public Long getLike() {

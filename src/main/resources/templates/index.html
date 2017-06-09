@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+    <link rel="stylesheet" href="app.css"/>
+
 </head>
 <body>
 <h1>Hello</h1>
+<button>
+    <a href="/login">
+        로그인
+    </a>
+</button>
+
+<div>
+    <div data-th-each="resultlist : ${result}" class="content">
+        <div data-th-text="${resultlist.user.name}"></div>
+        <div data-th-text="${resultlist.content}"></div>
+        <div data-th-each="comment : ${resultlist.comments}">
+            <div data-th-text="${comment.text}"></div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

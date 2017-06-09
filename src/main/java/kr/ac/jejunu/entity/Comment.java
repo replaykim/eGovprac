@@ -17,7 +17,7 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "content_no",  referencedColumnName = "no")
     private Content content;
-    private String comments;
+    private String text;
     private Date registDate;
 
     public Long getNo() {
@@ -44,12 +44,12 @@ public class Comment {
         this.content = content;
     }
 
-    public String getComments() {
-        return comments;
+    public String getText() {
+        return text;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Date getRegistDate() {

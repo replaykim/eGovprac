@@ -51,4 +51,15 @@ public class PostingServiceTest {
             assertThat(userNo,is(contents.get(i).getUser().getNo()));
         }
     }
+
+    @Test
+    public void getCommentList(){
+        String content="임시1";
+        Long like = 1l;
+        Long userNo = 1l;
+
+        List<Content> content1 = contentService.findAll();
+
+        assertThat(2,is(content1.get(0).getComments().size()));
+    }
 }

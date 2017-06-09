@@ -1,7 +1,6 @@
 package kr.ac.jejunu;
 
 import kr.ac.jejunu.entity.Comment;
-import kr.ac.jejunu.entity.Content;
 import kr.ac.jejunu.entity.User;
 import kr.ac.jejunu.service.CommentService;
 import kr.ac.jejunu.service.ContentService;
@@ -48,7 +47,7 @@ public class GeneralTest {
 
         for (int i = 0; i <comments.size();i++){
             assertThat(contentId,is(comments.get(i).getContent().getNo()));
-            logger.info(comments.get(i).getComments());
+            logger.info(comments.get(i).getText());
         }
         assertThat(user1name,is(comments.get(0).getUser().getName()));
         assertThat(user4name,is(comments.get(1).getUser().getName()));
