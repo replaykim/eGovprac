@@ -34,11 +34,20 @@ public class LoginController {
 
         if (logincheck){
             HttpSession session = request.getSession(true);
+            session.setAttribute("email", user.getEmail());
+
             return "redirect:/";
         }else {
             modelMap.addAttribute("loginerr","무언가 틀렸습니다");
             return "login";
         }
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+
+        return "redirect:/";
     }
 
 }

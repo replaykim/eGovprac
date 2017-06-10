@@ -25,4 +25,8 @@ public class UserService {
     public void update(User user) {
         userDao.save(user);
     }
+
+    public User findOneById(Long no) {
+        return userDao.findOne(no);
+    }
 }

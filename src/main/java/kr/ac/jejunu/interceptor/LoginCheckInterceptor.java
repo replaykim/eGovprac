@@ -1,5 +1,6 @@
 package kr.ac.jejunu.interceptor;
 
+import kr.ac.jejunu.entity.User;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,12 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
 
+        String email = (String) session.getAttribute("email");
+
+        if (email ==null) {
+            response.sendRedirect(request.getContextPath()+"login");
+            return false;
+        }
 
         return true;
     }

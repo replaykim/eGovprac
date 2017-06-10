@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:tH="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
@@ -8,15 +8,21 @@
 </head>
 <body>
 <h1>Hello</h1>
-<button>
-    <a href="/login">
-        로그인
+
+
+<div th:if="${session.email} != null" >
+    <a href="/mypage">
+        마이페이지
     </a>
-</button>
+    <a href="/logout">로그아웃</a>
+</div>
+<a th:if="${session.email} == null" th:href="@{/login}">
+    로그인
+</a>
 
 <div>
     <div data-th-each="resultlist : ${result}" class="content">
-        <div data-th-text="${resultlist.user.name}"></div>
+        <a th:href="'/others/'+${resultlist.user.no}" data-th-text="${resultlist.user.name}"></a>
         <div data-th-text="${resultlist.content}"></div>
         <div data-th-each="comment : ${resultlist.comments}">
             <div data-th-text="${comment.text}"></div>
