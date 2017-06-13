@@ -9,6 +9,6 @@ import java.util.List;
  * Created by blue on 2017-06-08.
  */
 public interface ContentDao extends JpaRepository<Content,Long>{
-//    @Query("select c from Content c join User u where u.no = ?1")
+//    @Query("select C from Content C join User u where u.no = ?1")
     List<Content> findByUserNo(Long userNo);
 }
