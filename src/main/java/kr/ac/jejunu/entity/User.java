@@ -15,6 +15,8 @@ public class User {
     private String email;
     private String password;
     private String name;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(insertable=false)
     private Date registDate;
 
     public Long getNo() {

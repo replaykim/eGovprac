@@ -23,7 +23,7 @@
 <div>
     <div data-th-each="resultlist : ${result}" class="content">
         <a th:href="'/others/'+${resultlist.user.no}" data-th-text="${resultlist.user.name}"></a>
-        <div data-th-text="${resultlist.content}"></div>
+        <div data-th-text="${resultlist.contents}"></div>
         <div data-th-each="comment : ${resultlist.comments}">
             <div data-th-text="${comment.text}"></div>
         </div>

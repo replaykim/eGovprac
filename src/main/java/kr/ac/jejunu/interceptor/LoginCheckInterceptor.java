@@ -17,14 +17,14 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
         HttpSession session = request.getSession(false);
 
         if (session == null){
-            response.sendRedirect(request.getContextPath()+"login");
+            response.sendRedirect("/login");
             return false;
         }
 
         String email = (String) session.getAttribute("email");
 
         if (email ==null) {
-            response.sendRedirect(request.getContextPath()+"login");
+            response.sendRedirect("/login");
             return false;
         }
 

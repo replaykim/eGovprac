@@ -26,4 +26,8 @@ public class ContentService {
     public List<Content> findAll() {
         return contentDao.findAll();
     }
+
+    public Content save(Content content) {
+        return contentDao.saveAndFlush(content);
+    }
 }

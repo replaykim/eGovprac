@@ -10,17 +10,21 @@ import java.util.List;
 @Entity
 public class Content {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "no")
     private Long no;
     @ManyToOne
     @JoinColumn(name = "user_no",  referencedColumnName = "no")
     private User user;
-    private String content;
+    private String contents;
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name = "content_no")
     private List<Comment> comments;
-    private Long like;
-    private Long dislike;
+    @Column(name = "`like`")
+    private Long like =0l;
+    private Long dislike=0l;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(insertable=false)
     private Date registDate;
 
     public Long getNo() {
@@ -39,12 +43,12 @@ public class Content {
         this.user = user;
     }
 
-    public String getContent() {
-        return content;
+    public String getContents() {
+        return contents;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 
     public List<Comment> getComments() {

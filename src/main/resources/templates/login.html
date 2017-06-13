@@ -8,10 +8,12 @@
     <form th:action="@{/logincheck}" method="post">
 
 
-        <input type="text" name="email" />
-        <input type="password" name="password"/>
+        E-MAIL : <input type="text" name="email" /><br/>
+        PASSWORD : <input type="password" name="password"/><br/>
         <input type="submit" value="제출" />
     </form>
+
+    <a href="/registuser">회원가입</a>
 
     <script th:inline="javascript">
         var message = [[${loginerr}]];

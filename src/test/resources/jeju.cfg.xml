@@ -8,6 +8,6 @@
         <property name="hibernate.connection.url">jdbc:mysql://117.17.102.106/replay2</property>
         <property name="hibernate.connection.username">root</property>
         <!--<property name="hibernate.default_schema">jejunu</property>-->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
     </session-factory>
 </hibernate-configuration>

@@ -18,6 +18,8 @@ public class Comment {
     @JoinColumn(name = "content_no",  referencedColumnName = "no")
     private Content content;
     private String text;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(insertable=false)
     private Date registDate;
 
     public Long getNo() {
