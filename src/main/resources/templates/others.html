@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
-    <h1>남의페이지</h1>
-    <div th:if="${session.email} != null" >
-        <form th:action="@{/addfriend}">
-            <input th:value="${user.email}"/>
-            <input type="submit" value="친구추가" />
-        </form>
-    </div>
-    <div th:text="${user.name}"></div>
+<h1>남의페이지</h1>
+<div th:switch="${relation}">
+    <p th:case="full">친구입니다.</p>
+    <a th:case="request">친구요청중입니다.</a>
+    <form th:case="confirm" th:action="'/others/'+${user.no}+'/friendconfirm'" method="post">
+        <input type="submit" value="친구수락" />
+    </form>
+    <form th:case="*" th:action="'/others/'+${user.no}+'/friendrequest'" method="post">
+        <input type="submit"  value="친구추가"/>
+    </form>
+</div>
+
+
+<div th:text="${user.name}"></div>
 </body>
 </html>

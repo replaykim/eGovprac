@@ -15,16 +15,29 @@ public class FriendService {
     @Autowired
     FriendDao friendDao;
 
-    public FriendRelation getRelation(Long userNo, Long userNo2) {
+    public Friend getRelation(Long userNo, Long userNo2) {
 
         Friend friend = friendDao.findByFriendRelation(userNo,userNo2);
         Friend friend2 = friendDao.findByFriendRelation(userNo2,userNo);
 
         if (friend != null){
-            return friend.getFriendRelation();
+            return friend;
         }else if (friend2 != null){
-            return friend2.getFriendRelation();
+            return friend2;
         }
         return null;
+    }
+
+    public void requestFriend(Friend friend) {
+        friendDao.save(friend);
+    }
+
+    public Friend findRequset(Long no, Long no1) {
+        //요청한 사람이 뒤에있다.
+        return friendDao.findByFriendRelation(no, no1);
+    }
+
+    public void confirmFriend(Friend requstFriend) {
+        friendDao.save(requstFriend);
     }
 }

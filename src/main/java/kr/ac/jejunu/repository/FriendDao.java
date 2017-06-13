@@ -11,4 +11,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface FriendDao extends JpaRepository<Friend, Long>{
     @Query("select f from Friend f where f.friend1No.no = ?1  AND f.friend2No.no = ?2")
     Friend findByFriendRelation(Long friendNo, Long friendNo2);
+
 }

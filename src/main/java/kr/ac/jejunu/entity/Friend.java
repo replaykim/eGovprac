@@ -20,8 +20,10 @@ public class Friend {
     private User friend2No;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "relation")
-    private FriendRelation friendRelation;
+    @GeneratedValue
+    @Column(name = "relation",columnDefinition = "ENUM DEFAULT half")
+    private FriendRelation friendRelation=FriendRelation.half;
+
 
     public Long getNo() {
         return no;
