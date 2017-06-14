@@ -1,6 +1,7 @@
 package kr.ac.jejunu.repository;
 
 import kr.ac.jejunu.entity.Content;
+import kr.ac.jejunu.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -12,6 +13,6 @@ import java.util.List;
 public interface ContentDao extends JpaRepository<Content,Long>{
 //    @Query("select C from Content C join User u where u.no = ?1")
     List<Content> findByUserNo(Long userNo);
-    List<Content> findByUserWall(Long userNo);
+    List<Content> findByWall(User userNo);
 
 }

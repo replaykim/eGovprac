@@ -19,7 +19,7 @@ public class Content {
     private String contents;
     @ManyToOne
     @JoinColumn(name = "wall",  referencedColumnName = "no")
-    private User wallUser = user;
+    private User wall = user;
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name = "content_no")
     private List<Comment> comments;
@@ -54,12 +54,12 @@ public class Content {
         this.contents = contents;
     }
 
-    public User getWallUser() {
-        return wallUser;
+    public User getWall() {
+        return wall;
     }
 
-    public void setWallUser(User wallUser) {
-        this.wallUser = wallUser;
+    public void setWall(User wall) {
+        this.wall = wall;
     }
 
     public List<Comment> getComments() {

@@ -3,16 +3,39 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+    <link rel="stylesheet" href="app.css"/>
+
 </head>
 <body>
 <h1>mypage</h1>
-<form th:action="@{/savecontentinmy}" method="post"  >
-    <input type="text" name="content"/>
+<div>
+    <img th:src="${user.photo}" width="90px" height="90px" style="display: inline-block"/>
+    <div th:text="${user.name}"></div>
+    <a href="/adituser">개인정보수정</a>
+</div>
+<form th:action="@{/savecontentinmy}" method="post">
+    <textarea type="text" name="content" style="resize: none; width: 300px; height: 130px"/>
     <input type="submit" value="등록"/>
 </form>
 
-<div data-th-text="${user.name}"></div>
-<img th:src="${user.photo}" width="90px" height="90px" />
-
+<div>
+    <div data-th-each="resultlist : ${result}" class="content">
+        <img th:src="${resultlist.user.photo}" width="70px" height="70px"/>
+        <a th:href="'/others/'+${resultlist.user.no}" data-th-text="${resultlist.user.name}"></a>
+        <div data-th-text="${resultlist.contents}"></div>
+        <div data-th-each="comment : ${resultlist.comments}" style="border: 1px blue dotted">
+            <img th:src="${comment.user.photo}" width="35px" height="35px"/>
+            <a th:href="'/others/'+${comment.user.no}" data-th-text="${comment.user.name}"></a>
+            <div data-th-text="${comment.text}"></div>
+        </div>
+        <div>
+            <form action="commentsave" method="post">
+                <input type="hidden" th:name="content" th:value="${resultlist.no}"/>
+                <input type="text" name="text"/>
+                <input type="submit" value="답글"/>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by replay on 2017. 6. 9..
@@ -29,7 +30,9 @@ public class MypageController {
         String email = (String) session.getAttribute("email");
         User mypageUser = userService.findOneByEmail(email);
 
+        List<Content> contents = contentService.findAllByWall(mypageUser);
 
+        modelMap.addAttribute("result",contents);
         modelMap.addAttribute("user", mypageUser);
         return "mypage";
     }
@@ -45,7 +48,7 @@ public class MypageController {
         content.setContents(contents);
         content.setUser(mypageUser);
 
-        content.setWallUser(mypageUser);
+        content.setWall(mypageUser);
 
         contentService.save(content);
 

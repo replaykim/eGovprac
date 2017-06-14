@@ -1,5 +1,6 @@
 package kr.ac.jejunu.service;
 
+import kr.ac.jejunu.entity.User;
 import kr.ac.jejunu.repository.ContentDao;
 import kr.ac.jejunu.entity.Content;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,9 @@ public class ContentService {
 
     public Content save(Content content) {
         return contentDao.saveAndFlush(content);
+    }
+
+    public List<Content> findAllByWall(User wallNo) {
+        return contentDao.findByWall(wallNo);
     }
 }
