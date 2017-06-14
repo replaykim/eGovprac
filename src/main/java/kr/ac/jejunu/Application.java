@@ -22,9 +22,10 @@ public class Application {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
-                registry.addInterceptor(new LoginCheckInterceptor()).addPathPatterns("/mypage")
-                                                                    .addPathPatterns("/others/*")
-                                                                    .addPathPatterns("/commentsave");
+                registry.addInterceptor(new LoginCheckInterceptor()).addPathPatterns("/**")
+                                                                    .excludePathPatterns("/")
+                                                                    .excludePathPatterns("/login")
+                                                                    .excludePathPatterns("/logincheck");
             }
         };
     }

@@ -19,7 +19,9 @@
 <a th:if="${session.email} == null" th:href="@{/login}">
     로그인
 </a>
+<form>
 
+</form>
 <div>
     <div data-th-each="resultlist : ${result}" class="content">
         <img th:src="${resultlist.user.photo}" width="70px" height="70px" />
