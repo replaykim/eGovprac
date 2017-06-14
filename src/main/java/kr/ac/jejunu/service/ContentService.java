@@ -4,6 +4,9 @@ import kr.ac.jejunu.entity.User;
 import kr.ac.jejunu.repository.ContentDao;
 import kr.ac.jejunu.entity.Content;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +27,7 @@ public class ContentService {
         return contentDao.findOne(userNo);
     }
 
-    public List<Content> findAll() {
+    public List<Content> findAll( ) {
         return contentDao.findAll();
     }
 
@@ -34,5 +37,9 @@ public class ContentService {
 
     public List<Content> findAllByWall(User wallNo) {
         return contentDao.findByWall(wallNo);
+    }
+
+    public Page<Content> findAllsort(PageRequest pageRequest ) {
+        return contentDao.findAll(pageRequest);
     }
 }

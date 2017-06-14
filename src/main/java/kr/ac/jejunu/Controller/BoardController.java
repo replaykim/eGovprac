@@ -7,6 +7,9 @@ import kr.ac.jejunu.service.CommentService;
 import kr.ac.jejunu.service.ContentService;
 import kr.ac.jejunu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +36,11 @@ public class BoardController {
 
     @RequestMapping("/")
     public String mainPage(ModelMap modelMap){
-        List<Content> contents = contentService.findAll();
+        PageRequest pageRequest = new PageRequest(0, 10, new Sort(Sort.Direction.DESC, "registDate"));
+        Page<Content> result = contentService.findAllsort(pageRequest);
+
+        List<Content> contents = result.getContent();
+//        List<Content> contents = contentService.findAll();
 
         modelMap.addAttribute("result",contents);
         return  "index";

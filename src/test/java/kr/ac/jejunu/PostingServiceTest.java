@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -74,7 +73,7 @@ public class PostingServiceTest {
         Long like = 1l;
         Long userNo = 1l;
 
-        List<Content> content1 = contentService.findAll();
+        List<Content> content1 = contentService.findAll(pageRequest);
 
         assertThat(2,is(content1.get(0).getComments().size()));
     }
