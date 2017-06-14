@@ -30,19 +30,20 @@ public class RegistUserController {
     @RequestMapping("saveuser")
     public String saveUser(@RequestParam("file") MultipartFile file, User user, ModelMap modelMap) {
 
+
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File("src/main/resources/static/photoes/" + file.getOriginalFilename()));
             BufferedOutputStream outputStream = new BufferedOutputStream(fileOutputStream);
+            user.setPhoto("/photoes/" + file.getOriginalFilename());
+
             outputStream.write(file.getBytes());
             outputStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            //default
+            user.setPhoto("/photoes/anonymous.png");
         }
 
-        user.setPhoto("/photoes/" + file.getOriginalFilename());
         userService.save(user);
-
-        modelMap.addAttribute("ok", "완료");
 
         return "redirect:/";
     }
