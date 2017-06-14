@@ -6,12 +6,13 @@
 </head>
 <body>
 <h1>mypage</h1>
-<form th:action="@{/savecontent}" method="post"  >
+<form th:action="@{/savecontentinmy}" method="post"  >
     <input type="text" name="content"/>
     <input type="submit" value="등록"/>
 </form>
 
 <div data-th-text="${user.name}"></div>
+<img th:src="${user.photo}" width="90px" height="90px" />
 
 </body>
 </html>

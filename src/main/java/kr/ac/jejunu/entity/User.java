@@ -1,5 +1,7 @@
 package kr.ac.jejunu.entity;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -15,6 +17,7 @@ public class User {
     private String email;
     private String password;
     private String name;
+    private String photo;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(insertable=false)
     private Date registDate;
@@ -49,6 +52,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public Date getRegistDate() {

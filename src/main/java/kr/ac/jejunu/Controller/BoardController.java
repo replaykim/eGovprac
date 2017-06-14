@@ -33,7 +33,6 @@ public class BoardController {
 
     @RequestMapping("/")
     public String mainPage(ModelMap modelMap){
-        HashMap hashMap = new HashMap();
         List<Content> contents = contentService.findAll();
 
         modelMap.addAttribute("result",contents);

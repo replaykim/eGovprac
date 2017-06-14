@@ -35,7 +35,7 @@ public class MypageController {
     }
 
 
-    @PostMapping("/savecontent")
+    @PostMapping("/savecontentinmy")
     public String saveContent(HttpServletRequest request, @RequestParam(name = "content")String contents){
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
@@ -44,6 +44,8 @@ public class MypageController {
         Content content = new Content();
         content.setContents(contents);
         content.setUser(mypageUser);
+
+        content.setWallUser(mypageUser);
 
         contentService.save(content);
 

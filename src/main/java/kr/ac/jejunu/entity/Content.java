@@ -17,6 +17,9 @@ public class Content {
     @JoinColumn(name = "user_no",  referencedColumnName = "no")
     private User user;
     private String contents;
+    @ManyToOne
+    @JoinColumn(name = "wall",  referencedColumnName = "no")
+    private User wallUser = user;
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name = "content_no")
     private List<Comment> comments;
@@ -49,6 +52,14 @@ public class Content {
 
     public void setContents(String contents) {
         this.contents = contents;
+    }
+
+    public User getWallUser() {
+        return wallUser;
+    }
+
+    public void setWallUser(User wallUser) {
+        this.wallUser = wallUser;
     }
 
     public List<Comment> getComments() {
