@@ -19,4 +19,8 @@ public class CommentService {
     public List<Comment> findAllByContentNo(Long contentNo){
         return commentDao.findByContentNo(contentNo);
     }
+
+    public void save(Comment comment) {
+        commentDao.save(comment);
+    }
 }

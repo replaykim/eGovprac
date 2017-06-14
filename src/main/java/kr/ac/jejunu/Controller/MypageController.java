@@ -35,7 +35,7 @@ public class MypageController {
     }
 
 
-    @PostMapping("savecontent")
+    @PostMapping("/savecontent")
     public String saveContent(HttpServletRequest request, @RequestParam(name = "content")String contents){
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
@@ -47,6 +47,6 @@ public class MypageController {
 
         contentService.save(content);
 
-        return "forward:/mypage";
+        return "redirect:/mypage";
     }
 }

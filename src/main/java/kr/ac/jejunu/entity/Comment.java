@@ -9,7 +9,8 @@ import java.util.Date;
 @Entity
 public class Comment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "no")
     private Long no;
     @ManyToOne
     @JoinColumn(name = "user_no",  referencedColumnName = "no")

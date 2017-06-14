@@ -40,4 +40,16 @@ public class BoardController {
         return  "index";
     }
 
+    @PostMapping("/commentsave")
+    public String commentSave(Comment comment, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        User mypageUser = userService.findOneByEmail(email);
+
+        comment.setUser(mypageUser);
+
+        commentService.save(comment);
+        return "redirect:/";
+    }
+
 }

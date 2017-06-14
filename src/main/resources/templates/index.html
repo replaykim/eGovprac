@@ -27,6 +27,13 @@
         <div data-th-each="comment : ${resultlist.comments}">
             <div data-th-text="${comment.text}"></div>
         </div>
+        <div>
+            <form action="commentsave" method="post">
+                <input type="hidden" th:name="content" th:value="${resultlist.no}"/>
+                <input type="text" name="text" />
+                <input type="submit" value="답글"/>
+            </form>
+        </div>
     </div>
 </div>
 </body>

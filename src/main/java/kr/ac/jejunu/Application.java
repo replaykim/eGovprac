@@ -23,7 +23,8 @@ public class Application {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(new LoginCheckInterceptor()).addPathPatterns("/mypage")
-                                                                    .addPathPatterns("/others/*");
+                                                                    .addPathPatterns("/others/*")
+                                                                    .addPathPatterns("/commentsave");
             }
         };
     }
