@@ -48,7 +48,7 @@ public class BoardController {
         comment.setUser(mypageUser);
 
         commentService.save(comment);
-        return "redirect:/";
+        return request.getContextPath();
     }
 
 }

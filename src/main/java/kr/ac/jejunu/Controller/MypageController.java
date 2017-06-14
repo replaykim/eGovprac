@@ -8,9 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -52,6 +57,50 @@ public class MypageController {
 
         contentService.save(content);
 
+        return "redirect:/mypage";
+    }
+
+    @RequestMapping("edituser")
+    public String editUser(HttpServletRequest request, ModelMap modelMap){
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        User mypageUser = userService.findOneByEmail(email);
+
+        modelMap.addAttribute("user", mypageUser);
+
+        return "edituser";
+    }
+
+    @PostMapping("updateuser")
+    public String updateUser(HttpServletRequest request, @RequestParam("file") MultipartFile file, User user){
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        User mypageUser = userService.findOneByEmail(email);
+
+        if (!user.getPassword().equals("")){
+            mypageUser.setPassword(user.getPassword());
+        }
+
+        if (!user.getName().equals("")){
+            mypageUser.setName(user.getName());
+        }
+
+        if (file != null ){
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(new File("src/main/resources/static/photoes/" + file.getOriginalFilename()));
+                BufferedOutputStream outputStream = new BufferedOutputStream(fileOutputStream);
+                user.setPhoto("/photoes/" + file.getOriginalFilename());
+
+                outputStream.write(file.getBytes());
+                outputStream.close();
+            } catch (IOException e) {
+                //default
+            }
+        }
+
+
+
+        userService.update(mypageUser);
         return "redirect:/mypage";
     }
 }
