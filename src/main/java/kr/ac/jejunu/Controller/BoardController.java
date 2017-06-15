@@ -6,6 +6,7 @@ import kr.ac.jejunu.entity.User;
 import kr.ac.jejunu.service.CommentService;
 import kr.ac.jejunu.service.ContentService;
 import kr.ac.jejunu.service.UserService;
+import kr.ac.jejunu.util.DateUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,8 +42,9 @@ public class BoardController {
 
         List<Content> contents = result.getContent();
 //        List<Content> contents = contentService.findAll();
-
+        DateUtility dateUtility = new DateUtility();
         modelMap.addAttribute("result",contents);
+        modelMap.addAttribute("dateUtility",dateUtility);
         return  "index";
     }
 

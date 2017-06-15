@@ -73,7 +73,7 @@ public class PostingServiceTest {
         Long like = 1l;
         Long userNo = 1l;
 
-        List<Content> content1 = contentService.findAll(pageRequest);
+        List<Content> content1 = contentService.findAll();
 
         assertThat(2,is(content1.get(0).getComments().size()));
     }
