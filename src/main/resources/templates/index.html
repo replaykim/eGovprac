@@ -25,7 +25,14 @@
 <div>
     <div data-th-each="resultlist : ${result}" class="content">
         <img th:src="${resultlist.user.photo}" width="70px" height="70px" />
-        <a th:href="'/others/'+${resultlist.user.no}" data-th-text="${resultlist.user.name}"></a>
+
+        <div th:if="${resultlist.user}==${resultlist.wall}">
+            <a th:href="'/others/'+${resultlist.user.no}" data-th-text="${resultlist.user.name}"></a>
+        </div>
+        <div th:unless="${resultlist.user}==${resultlist.wall}">
+            <a th:href="'/others/'+${resultlist.user.no}" data-th-text="${resultlist.user.name}"></a>->
+            <a th:href="'/others/'+${resultlist.wall.no}" data-th-text="${resultlist.wall.name}"></a>
+        </div>
         <div data-th-text="${resultlist.contents}"></div>
 
         <span th:text="${T(kr.ac.jejunu.util.DateUtility).compareDate(resultlist.registDate)}" />
