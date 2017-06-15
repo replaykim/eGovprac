@@ -22,8 +22,14 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
+
     @RequestMapping("/login")
-    public String loginPage(){
+    public String loginPage(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+
+        if (session != null){
+            return "redirect:/";
+        }
         return "login";
     }
 

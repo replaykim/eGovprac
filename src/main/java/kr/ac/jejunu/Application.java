@@ -25,7 +25,9 @@ public class Application {
                 registry.addInterceptor(new LoginCheckInterceptor()).addPathPatterns("/**")
                                                                     .excludePathPatterns("/")
                                                                     .excludePathPatterns("/login")
-                                                                    .excludePathPatterns("/logincheck");
+                                                                    .excludePathPatterns("/logincheck")
+                                                                    .excludePathPatterns("/registuser")
+                                                                    .excludePathPatterns("/saveuser");
             }
         };
     }

@@ -1,7 +1,5 @@
 package kr.ac.jejunu.util;
 
-import org.springframework.context.annotation.Bean;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
