@@ -97,9 +97,9 @@ public class MypageController {
 
         if (file != null ){
             try {
-                FileOutputStream fileOutputStream = new FileOutputStream(new File("src/main/resources/static/photoes/" + file.getOriginalFilename()));
+                FileOutputStream fileOutputStream = new FileOutputStream(new File("src/main/resources/static/photos/" + file.getOriginalFilename()));
                 BufferedOutputStream outputStream = new BufferedOutputStream(fileOutputStream);
-                user.setPhoto("/photoes/" + file.getOriginalFilename());
+                user.setPhoto("/photos/" + file.getOriginalFilename());
 
                 outputStream.write(file.getBytes());
                 outputStream.close();
