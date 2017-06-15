@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+    <link rel="stylesheet" href="/app.css"/>
+
 </head>
 <body>
+<a href="/">홈</a>
+
 <h1>남의페이지</h1>
 <div th:switch="${relation}">
     <p th:case="full">친구입니다.</p>
@@ -28,19 +32,32 @@
         <img th:src="${resultlist.user.photo}" width="70px" height="70px"/>
         <a th:href="'/others/'+${resultlist.user.no}" data-th-text="${resultlist.user.name}"></a>
         <div data-th-text="${resultlist.contents}"></div>
+
+        <span th:text="${T(kr.ac.jejunu.util.DateUtility).compareDate(resultlist.registDate)}" />
+
         <div data-th-each="comment : ${resultlist.comments}" style="border: 1px blue dotted">
             <img th:src="${comment.user.photo}" width="35px" height="35px"/>
             <a th:href="'/others/'+${comment.user.no}" data-th-text="${comment.user.name}"></a>
             <div data-th-text="${comment.text}"></div>
         </div>
         <div>
-            <form action="commentsave" method="post">
+            <form action="/commentsave" method="post">
                 <input type="hidden" th:name="content" th:value="${resultlist.no}"/>
+                <input type="hidden" th:name="requestFrom" th:value="${requestFrom}"/>
+
                 <input type="text" name="text"/>
                 <input type="submit" value="답글"/>
             </form>
         </div>
     </div>
 </div>
+
+<script th:inline="javascript">
+    var message = [[${message}]];
+    console.log(message);
+    if (message !== null){
+        alert(message);
+    }
+</script>
 </body>
 </html>

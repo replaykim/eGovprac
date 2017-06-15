@@ -42,4 +42,7 @@ public class ContentService {
     public Page<Content> findAllsort(PageRequest pageRequest ) {
         return contentDao.findAll(pageRequest);
     }
+    public Page<Content> findByWallNosort(User wall, PageRequest pageRequest ) {
+        return  contentDao.findByWall(wall, pageRequest);
+    }
 }

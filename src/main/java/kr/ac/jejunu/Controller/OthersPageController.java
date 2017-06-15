@@ -8,12 +8,12 @@ import kr.ac.jejunu.service.ContentService;
 import kr.ac.jejunu.service.FriendService;
 import kr.ac.jejunu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,7 +31,7 @@ public class OthersPageController {
     @Autowired
     ContentService contentService;
 
-    @GetMapping("/others/{no}")
+    @RequestMapping("/others/{no}")
     public String viewOthersPage(@PathVariable String no, HttpServletRequest request, ModelMap modelmap)  {
 
         HttpSession session = request.getSession(false);
@@ -47,6 +47,7 @@ public class OthersPageController {
         }
 
         Friend relation = friendService.getRelation(myUser.getNo(), id);
+
 
         if (relation != null) {
             //누구의 요청인지 체크
@@ -66,8 +67,12 @@ public class OthersPageController {
             modelmap.addAttribute("relation", null);
 
         }
-        List<Content> contents = contentService.findAllByWall(user);
+        PageRequest pageRequest = new PageRequest(0, 100, new Sort(Sort.Direction.DESC, "registDate"));
+        Page<Content> result = contentService.findByWallNosort(user,pageRequest);
 
+        List<Content> contents = result.getContent();
+//        List<Content> contents = contentService.findAllByWall(user);
+        modelmap.addAttribute("requestFrom", request.getRequestURI());
         modelmap.addAttribute("result",contents);
         modelmap.addAttribute("user", user);
         return "others";
@@ -113,17 +118,30 @@ public class OthersPageController {
 
 
     @PostMapping("/others/{no}/savecontentinothers")
-    public String saveContent(@PathVariable String no, HttpServletRequest request, @RequestParam(name = "content")String contents){
+    public String saveContent(@PathVariable String no, HttpServletRequest request, @RequestParam(name = "content")String contents, ModelMap modelMap){
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
-        User mypageUser = userService.findOneByEmail(email);
+        User myUser = userService.findOneByEmail(email);
 
         Long id = Long.valueOf(no);
         User wallUser = userService.findOneById(id);
 
+        //관계 조사
+        Friend relation = friendService.getRelation(myUser.getNo(), id);
+
+        if (relation ==null){
+            modelMap.addAttribute("message","친구가 아닙니다.");
+
+            return "forward:/others/"+no;
+        }else if (!relation.getFriendRelation().equals("full")){
+            modelMap.addAttribute("message","친구요청을 아직 받지 않았습니다.");
+
+            return "forward:/others/"+no;
+        }
+
         Content content = new Content();
         content.setContents(contents);
-        content.setUser(mypageUser);
+        content.setUser(myUser);
 
         content.setWall(wallUser);
 

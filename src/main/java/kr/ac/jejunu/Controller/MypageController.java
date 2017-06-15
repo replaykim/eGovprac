@@ -5,6 +5,9 @@ import kr.ac.jejunu.entity.User;
 import kr.ac.jejunu.service.ContentService;
 import kr.ac.jejunu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +38,15 @@ public class MypageController {
         String email = (String) session.getAttribute("email");
         User mypageUser = userService.findOneByEmail(email);
 
-        List<Content> contents = contentService.findAllByWall(mypageUser);
+//        List<Content> contents = contentService.findAllByWall(mypageUser);
 
+        PageRequest pageRequest = new PageRequest(0, 100, new Sort(Sort.Direction.DESC, "registDate"));
+        Page<Content> result = contentService.findByWallNosort(mypageUser,pageRequest);
+
+        List<Content> contents = result.getContent();
+
+
+        modelMap.addAttribute("requestFrom", request.getRequestURI());
         modelMap.addAttribute("result",contents);
         modelMap.addAttribute("user", mypageUser);
         return "mypage";
