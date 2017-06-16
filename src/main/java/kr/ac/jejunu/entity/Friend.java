@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 public class Friend {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;
     @ManyToOne
     @JoinColumn(name = "friend_no",  referencedColumnName = "no")

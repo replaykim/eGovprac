@@ -45,7 +45,7 @@ public class RegistUserController {
         }
 
         userService.save(user);
-        modelMap.addAttribute("registok","로그인하세요");
+        modelMap.addAttribute("message","로그인하세요");
 
         return "forward:/";
     }

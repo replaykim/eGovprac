@@ -70,7 +70,7 @@ public class MypageController {
         return "redirect:/mypage";
     }
 
-    @RequestMapping("edituser")
+    @RequestMapping("/edituser")
     public String editUser(HttpServletRequest request, ModelMap modelMap){
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
@@ -81,7 +81,7 @@ public class MypageController {
         return "edituser";
     }
 
-    @PostMapping("updateuser")
+    @PostMapping("/updateuser")
     public String updateUser(HttpServletRequest request, @RequestParam("file") MultipartFile file, User user){
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
@@ -99,7 +99,7 @@ public class MypageController {
             try {
                 FileOutputStream fileOutputStream = new FileOutputStream(new File("src/main/resources/static/photos/" + file.getOriginalFilename()));
                 BufferedOutputStream outputStream = new BufferedOutputStream(fileOutputStream);
-                user.setPhoto("/photos/" + file.getOriginalFilename());
+                mypageUser.setPhoto("/photos/" + file.getOriginalFilename());
 
                 outputStream.write(file.getBytes());
                 outputStream.close();
@@ -107,8 +107,6 @@ public class MypageController {
                 //default
             }
         }
-
-
 
         userService.update(mypageUser);
         return "redirect:/mypage";

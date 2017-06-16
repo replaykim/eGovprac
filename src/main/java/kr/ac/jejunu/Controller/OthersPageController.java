@@ -32,7 +32,7 @@ public class OthersPageController {
     ContentService contentService;
 
     @RequestMapping("/others/{no}")
-    public String viewOthersPage(@PathVariable String no, HttpServletRequest request, ModelMap modelmap)  {
+    public String viewOthersPage(@PathVariable String no, HttpServletRequest request, ModelMap modelmap) {
 
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
@@ -42,7 +42,7 @@ public class OthersPageController {
         User user = userService.findOneById(id);
 
         //내 이름이면 mypage로
-        if(id == myUser.getNo()){
+        if (id == myUser.getNo()) {
             return "redirect:/mypage";
         }
 
@@ -62,24 +62,24 @@ public class OthersPageController {
                 //full 일경우
                 modelmap.addAttribute("relation", relation.getFriendRelation().toString());
             }
-        }else{
+        } else {
             //관계가 없을경우
             modelmap.addAttribute("relation", null);
 
         }
         PageRequest pageRequest = new PageRequest(0, 100, new Sort(Sort.Direction.DESC, "registDate"));
-        Page<Content> result = contentService.findByWallNosort(user,pageRequest);
+        Page<Content> result = contentService.findByWallNosort(user, pageRequest);
 
         List<Content> contents = result.getContent();
 //        List<Content> contents = contentService.findAllByWall(user);
         modelmap.addAttribute("requestFrom", request.getRequestURI());
-        modelmap.addAttribute("result",contents);
+        modelmap.addAttribute("result", contents);
         modelmap.addAttribute("user", user);
         return "others";
     }
 
     @PostMapping("/others/{no}/friendrequest")
-    public String friendRequest(@PathVariable String no, HttpServletRequest request, Friend friend){
+    public String friendRequest(@PathVariable String no, HttpServletRequest request, Friend friend) {
         try {
             HttpSession session = request.getSession(false);
             String email = (String) session.getAttribute("email");
@@ -92,15 +92,15 @@ public class OthersPageController {
             friend.setFriend2No(otherUser);
 
             friendService.requestFriend(friend);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
-        return "redirect:/others/"+no;
+        return "redirect:/others/" + no;
     }
 
     @PostMapping("/others/{no}/friendconfirm")
-    public String friendConfirm(@PathVariable String no, HttpServletRequest request){
+    public String friendConfirm(@PathVariable String no, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
         User myUser = userService.findOneByEmail(email);
@@ -113,12 +113,12 @@ public class OthersPageController {
 
         friendService.confirmFriend(relation);
 
-        return "redirect:/others/"+no;
+        return "redirect:/others/" + no;
     }
 
 
     @PostMapping("/others/{no}/savecontentinothers")
-    public String saveContent(@PathVariable String no, HttpServletRequest request, @RequestParam(name = "content")String contents, ModelMap modelMap){
+    public String saveContent(@PathVariable String no, HttpServletRequest request, @RequestParam(name = "content") String contents, ModelMap modelMap) {
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
         User myUser = userService.findOneByEmail(email);
@@ -129,24 +129,25 @@ public class OthersPageController {
         //관계 조사
         Friend relation = friendService.getRelation(myUser.getNo(), id);
 
-        if (relation ==null){
-            modelMap.addAttribute("message","친구가 아닙니다.");
+        if (relation == null) {
+            modelMap.addAttribute("message", "친구가 아닙니다.");
 
-            return "forward:/others/"+no;
-        }else if (!relation.getFriendRelation().equals("full")){
-            modelMap.addAttribute("message","친구요청을 아직 받지 않았습니다.");
+            return "forward:/others/" + no;
+        } else if (relation.getFriendRelation().equals("half")) {
+            modelMap.addAttribute("message", "친구요청을 아직 받지 않았습니다.");
 
-            return "forward:/others/"+no;
+            return "forward:/others/" + no;
+        } else {
+            Content content = new Content();
+            content.setContents(contents);
+            content.setUser(myUser);
+
+            content.setWall(wallUser);
+
+            contentService.save(content);
+
+            return "redirect:/others/" + no;
         }
 
-        Content content = new Content();
-        content.setContents(contents);
-        content.setUser(myUser);
-
-        content.setWall(wallUser);
-
-        contentService.save(content);
-
-        return "redirect:/others/"+no;
     }
 }

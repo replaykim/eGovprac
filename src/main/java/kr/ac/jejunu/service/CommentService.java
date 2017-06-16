@@ -23,4 +23,12 @@ public class CommentService {
     public void save(Comment comment) {
         commentDao.save(comment);
     }
+
+    public Comment findOne(Long no) {
+        return commentDao.findOne(no);
+    }
+
+    public void delete(Long no) {
+        commentDao.delete(no);
+    }
 }

@@ -18,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UrlPathHelper;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,19 +42,19 @@ public class BoardController {
     UserService userService;
 
     @RequestMapping("/")
-    public String mainPage(ModelMap modelMap, HttpServletRequest request){
+    public String mainPage(ModelMap modelMap, HttpServletRequest request) {
         PageRequest pageRequest = new PageRequest(0, 100, new Sort(Sort.Direction.DESC, "registDate"));
         Page<Content> result = contentService.findAllsort(pageRequest);
 
         List<Content> contents = result.getContent();
 //        List<Content> contents = contentService.findAll();
-        modelMap.addAttribute("result",contents);
+        modelMap.addAttribute("result", contents);
         modelMap.addAttribute("requestFrom", request.getRequestURI());
-        return  "index";
+        return "index";
     }
 
     @PostMapping("/commentsave")
-    public String commentSave(Comment comment, HttpServletRequest request, @RequestParam(name = "requestFrom")String fromurl){
+    public String commentSave(Comment comment, HttpServletRequest request, @RequestParam(name = "requestFrom") String fromurl) {
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
         User mypageUser = userService.findOneByEmail(email);
@@ -64,7 +65,23 @@ public class BoardController {
 
         logger.info(fromurl);
 
-        return "redirect:"+fromurl;
+        return "redirect:" + fromurl;
+    }
+
+    @PostMapping("/commentdelete")
+    public String commentDelete(HttpServletRequest request, @RequestParam(name = "no") Long no, @RequestParam(name = "requestFrom") String fromurl, ModelMap modelMap) {
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        User myUser = userService.findOneByEmail(email);
+        Comment comment = commentService.findOne(no);
+        User commentUser = comment.getUser();
+        if (myUser.getNo() == commentUser.getNo()) {
+            commentService.delete(no);
+            return "redirect:" + fromurl;
+        } else {
+            modelMap.addAttribute("message", "권한이 없습니다.");
+            return "forward:" + fromurl;
+        }
     }
 
 }
