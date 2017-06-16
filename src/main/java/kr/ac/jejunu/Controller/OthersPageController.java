@@ -133,7 +133,7 @@ public class OthersPageController {
             modelMap.addAttribute("message", "친구가 아닙니다.");
 
             return "forward:/others/" + no;
-        } else if (relation.getFriendRelation().equals("half")) {
+        } else if (relation.getFriendRelation().toString().equals("half")) {
             modelMap.addAttribute("message", "친구요청을 아직 받지 않았습니다.");
 
             return "forward:/others/" + no;
